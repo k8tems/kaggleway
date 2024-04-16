@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import KAGGLE_ROOT
+from .utils import KAGGLE_ROOT
 
 
 target_col = 'Rings'
