@@ -13,8 +13,8 @@ def process_feats(df):
 
 def get_train_df():
     train_df = pd.read_csv(COMP_ROOT / 'train.csv')
-    train_ids = train_df.pop('id', axis=1)
-    train_y_df = train_df.pop(target_col, axis=1)
+    train_ids = train_df.pop('id')
+    train_y_df = train_df.pop(target_col)
     process_feats(train_df)
     return train_df, train_y_df, train_ids
 
