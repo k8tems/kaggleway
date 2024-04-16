@@ -22,4 +22,4 @@ def get_train_df():
 def get_test_df():
     test_df = pd.read_csv(COMP_ROOT / 'test.csv')
     process_feats(test_df)
-    return test_df, test_df.pop('id', axis=1)
+    return test_df, test_df.pop('id')
