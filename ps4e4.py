@@ -1,9 +1,11 @@
 import pandas as pd
 from .utils import KAGGLE_ROOT, submit, get_csv_f_name
+from pathlib import Path
 
 
 target_col = 'Rings'
 COMP_ROOT = KAGGLE_ROOT / 'playground-series-s4e4'
+SUBMISSION_DIR = Path('/notebooks/ps4e4/submissions')
 
 
 def process_feats(df):
@@ -34,5 +36,6 @@ def stage_submission(ids, preds):
     return f_name
 
 
-def submit_ps4e4(f_name, msg):
-    submit('playground-series-s4e4', f_name, msg)
+def submit_ps4e4(msg, f_name=''):
+    # f_nameが指定されてなければSUBMISSION_DIRの最新のcsvが採用される
+    submit('playground-series-s4e4', msg, d_name=SUBMISSION_DIR, f_name=f_name)

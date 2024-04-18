@@ -1,3 +1,4 @@
+import os
 from pytz import timezone
 from datetime import datetime
 import kaggle
@@ -15,8 +16,12 @@ def auth():
     kaggle.api.authenticate()
 
 
-def submit(comp_id, f_name, msg):
-    kaggle.api.competition_submit(f_name, msg, comp_id)
+def get_latest_submission_f_name(d_name):
+    return sorted(os.listdir(d_name), reverse=True)[0]
+
+
+def submit(comp_id, msg, f_name='', d_name=''):
+    kaggle.api.competition_submit(f_name or get_latest_submission_f_name(d_name), msg, comp_id)
 
 
 def get_latest_submission_score(competition_name):
