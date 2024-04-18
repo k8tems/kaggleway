@@ -1,6 +1,5 @@
 import pandas as pd
-from .utils import KAGGLE_ROOT
-from utils import submit
+from .utils import KAGGLE_ROOT, submit, get_csv_f_name
 
 
 target_col = 'Rings'
@@ -26,11 +25,11 @@ def get_test_df():
     return test_df, test_df.pop('id')
 
 
-def stage_submission(ids, preds, f_name):
+def stage_submission(ids, preds):
     sub_df = pd.DataFrame()
     sub_df['id'] = ids
     sub_df['Rings'] = preds
-    f_name = f'/notebooks/ps4e4/submissions/{f_name}'
+    f_name = f'/notebooks/ps4e4/submissions/{get_csv_f_name()}'
     sub_df.to_csv(f_name, index=False)
     return f_name
 
