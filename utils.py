@@ -1,3 +1,5 @@
+from pytz import timezone
+from datetime import datetime
 import kaggle
 from pathlib import Path
 
@@ -20,3 +22,7 @@ def submit(comp_id, f_name, msg):
 def get_latest_submission_score(competition_name):
     submissions = kaggle.api.competitions_submissions_list(id=competition_name)
     return float(submissions[0]['publicScore'])
+
+
+def get_csv_f_name():
+    return datetime.now(timezone("Asia/Tokyo")).strftime("%Y_%m_%d_%H_%M") + ".csv"
