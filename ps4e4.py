@@ -1,5 +1,6 @@
 import pandas as pd
 from .utils import KAGGLE_ROOT
+from utils import submit
 
 
 target_col = 'Rings'
@@ -23,3 +24,16 @@ def get_test_df():
     test_df = pd.read_csv(COMP_ROOT / 'test.csv')
     process_feats(test_df)
     return test_df, test_df.pop('id')
+
+
+def stage_submission(ids, preds, f_name):
+    sub_df = pd.DataFrame()
+    sub_df['id'] = ids
+    sub_df['Rings'] = preds
+    f_name = f'/notebooks/ps4e4/submissions/{f_name}'
+    sub_df.to_csv(f_name, index=False)
+    return f_name
+
+
+def submit_ps4e4(f_name, msg):
+    submit('playground-series-s4e4', f_name, msg)
