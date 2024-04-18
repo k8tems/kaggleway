@@ -1,5 +1,5 @@
 import pandas as pd
-from .utils import KAGGLE_ROOT, submit, get_csv_f_name
+from .utils import KAGGLE_ROOT, submit, stage_df
 from pathlib import Path
 
 
@@ -31,9 +31,7 @@ def stage_submission(ids, preds):
     sub_df = pd.DataFrame()
     sub_df['id'] = ids
     sub_df['Rings'] = preds
-    f_name = f'/notebooks/ps4e4/submissions/{get_csv_f_name()}'
-    sub_df.to_csv(f_name, index=False)
-    return f_name
+    return stage_df(SUBMISSION_DIR, sub_df)
 
 
 def submit_ps4e4(msg, f_name=''):

@@ -31,3 +31,9 @@ def get_latest_submission_score(competition_name):
 
 def get_csv_f_name():
     return datetime.now(timezone("Asia/Tokyo")).strftime("%Y_%m_%d_%H_%M") + ".csv"
+
+
+def stage_df(sub_dir, df):
+    f_name = f'{sub_dir}/{get_csv_f_name()}'
+    df.to_csv(f_name, index=False)
+    return f_name
