@@ -40,13 +40,15 @@ class PS4E5(Competition):
         return test_df, test_df.pop('id')
 
 
-def stage_submission(ids, preds):
-    sub_df = pd.DataFrame()
-    sub_df['id'] = ids
-    sub_df[target_col] = preds
-    return stage_df(SUBMISSION_DIR, sub_df)
+class PS4E5Submission:
+    def __init__(self, d_name):
+        self.d_name = d_name
 
+    def stage(self, ids, preds):
+        sub_df = pd.DataFrame()
+        sub_df['id'] = ids
+        sub_df[target_col] = preds
+        return stage_df(self.d_name, sub_df)
 
-def submit_ps4e5(msg, f_name=''):
-    # f_nameが指定されてなければSUBMISSION_DIRの最新のcsvが採用される
-    submit('playground-series-s4e5', msg, d_name=SUBMISSION_DIR, f_name=f_name)
+    def submit(self, msg, f_name=''):
+        submit('playground-series-s4e5', msg, d_name=self.d_name, f_name=f_name)
