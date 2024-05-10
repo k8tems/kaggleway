@@ -11,9 +11,9 @@ def process_feats(df):
     """Default processing function run in all NBs"""
 
 
-class PS4E5(Competition):
+class PS4E5Competition(Competition):
     def __init__(self, kaggle_root: Path = None):
-        super(PS4E5, self).__init__(COMP_NAME, kaggle_root=kaggle_root)
+        super(PS4E5Competition, self).__init__(COMP_NAME, kaggle_root=kaggle_root)
 
     def read_csv(self, f_name):
         return pd.read_csv(self.comp_root / f_name)
