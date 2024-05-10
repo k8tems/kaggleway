@@ -40,20 +40,6 @@ class PS4E5(Competition):
         return test_df, test_df.pop('id')
 
 
-def get_train_df():
-    train_df = pd.read_csv(COMP_ROOT / 'train.csv')
-    train_ids = train_df.pop('id')
-    train_y_df = train_df.pop(target_col)
-    process_feats(train_df)
-    return train_df, train_y_df, train_ids
-
-
-def get_test_df():
-    test_df = pd.read_csv(COMP_ROOT / 'test.csv')
-    process_feats(test_df)
-    return test_df, test_df.pop('id')
-
-
 def stage_submission(ids, preds):
     sub_df = pd.DataFrame()
     sub_df['id'] = ids
