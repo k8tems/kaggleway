@@ -1,21 +1,10 @@
 import pandas as pd
-from utils import submit, stage_df
+from utils import submit, stage_df, Competition
 from pathlib import Path
 
 
 TARGET_COL = 'FloodProbability'
 COMP_NAME = 'playground-series-s4e5'
-
-
-class Competition:
-    def __init__(self, name: str, kaggle_root: Path = None):
-        self.comp_root = (Path(kaggle_root) or Path('/kaggle/input')) / name
-
-    def get_train_df(self):
-        raise NotImplementedError()
-
-    def get_test_df(self):
-        raise NotImplementedError()
 
 
 def process_feats(df):
