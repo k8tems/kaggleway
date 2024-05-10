@@ -1,11 +1,9 @@
 import pandas as pd
-from utils import KAGGLE_ROOT, submit, stage_df
+from utils import submit, stage_df
 from pathlib import Path
 
 
 target_col = 'FloodProbability'
-COMP_ROOT = KAGGLE_ROOT / 'playground-series-s4e5'
-SUBMISSION_DIR = Path('/notebooks/ps4e5/submissions')
 
 
 class Competition:
