@@ -20,8 +20,15 @@ def get_latest_submission_f_name(d_name):
     return sorted(os.listdir(d_name), reverse=True)[0]
 
 
+<<<<<<< HEAD
 def submit(comp_id, msg, f_name='', d_name: Path=''):
     kaggle.api.competition_submit(f_name or (d_name / get_latest_submission_f_name(d_name)), msg, comp_id)
+=======
+def submit(comp_id, msg, f_name: Path = '', d_name: Path = ''):
+    f_name = f_name or get_latest_submission_f_name(d_name)
+    print('submitting', f_name)
+    kaggle.api.competition_submit(d_name / f_name, msg, comp_id)
+>>>>>>> e361c12e7825de01e695d3a9ad4e09af586580b2
 
 
 def get_latest_submission_score(competition_name):
