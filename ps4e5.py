@@ -3,7 +3,8 @@ from utils import submit, stage_df
 from pathlib import Path
 
 
-target_col = 'FloodProbability'
+TARGET_COL = 'FloodProbability'
+COMP_NAME = 'playground-series-s4e5'
 
 
 class Competition:
@@ -23,7 +24,7 @@ def process_feats(df):
 
 class PS4E5(Competition):
     def __init__(self, kaggle_root: Path = None):
-        super(PS4E5, self).__init__('playground-series-s4e5', kaggle_root=kaggle_root)
+        super(PS4E5, self).__init__(COMP_NAME, kaggle_root=kaggle_root)
 
     def read_csv(self, f_name):
         return pd.read_csv(self.comp_root / f_name)
@@ -31,7 +32,7 @@ class PS4E5(Competition):
     def get_train_df(self):
         train_df = self.read_csv('train.csv')
         train_ids = train_df.pop('id')
-        train_y_df = train_df.pop(target_col)
+        train_y_df = train_df.pop(TARGET_COL)
         process_feats(train_df)
         return train_df, train_y_df, train_ids
 
@@ -48,8 +49,8 @@ class PS4E5Submission:
     def stage(self, ids, preds):
         sub_df = pd.DataFrame()
         sub_df['id'] = ids
-        sub_df[target_col] = preds
+        sub_df[TARGET_COL] = preds
         return stage_df(self.d_name, sub_df)
 
     def submit(self, msg, f_name=''):
-        submit('playground-series-s4e5', msg, d_name=self.d_name, f_name=f_name)
+        submit(COMP_NAME, msg, d_name=self.d_name, f_name=f_name)
