@@ -19,6 +19,10 @@ class Competition:
         raise NotImplementedError()
 
 
+def process_feats(df):
+    """Default processing function run in all NBs"""
+
+
 class PS4E5(Competition):
     def __init__(self, kaggle_root: Path = None):
         super(PS4E5, self).__init__('playground-series-s4e5', kaggle_root=kaggle_root)
@@ -30,9 +34,10 @@ class PS4E5(Competition):
         process_feats(train_df)
         return train_df, train_y_df, train_ids
 
-
-def process_feats(df):
-    """Default processing function run in all NBs"""
+    def get_test_df(self):
+        test_df = pd.read_csv(self.comp_root / 'test.csv')
+        process_feats(test_df)
+        return test_df, test_df.pop('id')
 
 
 def get_train_df():
