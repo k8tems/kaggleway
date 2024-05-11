@@ -1,5 +1,5 @@
 import pandas as pd
-from utils import submit, stage_df, Competition
+from .utils import submit, stage_df, Competition
 from pathlib import Path
 
 

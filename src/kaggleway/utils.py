@@ -5,7 +5,7 @@ import kaggle
 from pathlib import Path
 
 
-KAGGLE_ROOT = Path('/kaggle/input')
+KAGGLE_ROOT = Path('../../kaggle/input')
 
 
 def ls(p):
@@ -41,7 +41,7 @@ def stage_df(sub_dir, df):
 
 class Competition:
     def __init__(self, name: str, kaggle_root: Path = None):
-        self.comp_root = (Path(kaggle_root) or Path('/kaggle/input')) / name
+        self.comp_root = (Path(kaggle_root) or Path('../../kaggle/input')) / name
 
     def get_train_df(self):
         raise NotImplementedError()
