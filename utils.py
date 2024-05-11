@@ -37,3 +37,14 @@ def stage_df(sub_dir, df):
     f_name = f'{sub_dir}/{get_csv_f_name()}'
     df.to_csv(f_name, index=False)
     return f_name
+
+
+class Competition:
+    def __init__(self, name: str, kaggle_root: Path = None):
+        self.comp_root = (Path(kaggle_root) or Path('/kaggle/input')) / name
+
+    def get_train_df(self):
+        raise NotImplementedError()
+
+    def get_test_df(self):
+        raise NotImplementedError()
