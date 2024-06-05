@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import torch
+from torch import nn
 import random
 import numpy as np
 from pytz import timezone
