@@ -130,3 +130,7 @@ def dump_pickle(f_name, data):
 def load_pickle(f_name):
     with open(f_name, 'rb') as f:
         return pickle.load(f)
+
+
+def calc_moving_avg(x, window_size):
+    return np.convolve(np.array(x), np.ones(window_size) / window_size, mode='valid')
