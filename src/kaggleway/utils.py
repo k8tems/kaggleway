@@ -3,6 +3,7 @@ import pandas as pd
 import torch
 from torch import nn
 import random
+import pickle
 import numpy as np
 from pytz import timezone
 from datetime import datetime
@@ -119,3 +120,13 @@ def negative_r2_score_t(y_pred, y_true):
     ss_res = torch.sum((y_true - y_pred) ** 2)
     ss_tot = torch.sum((y_true - torch.mean(y_true)) ** 2)
     return -(1 - ss_res / ss_tot)
+
+
+def dump_pickle(f_name, data):
+    with open(f_name, 'wb') as f:
+        pickle.dump(data, f)
+
+
+def load_pickle(f_name):
+    with open(f_name, 'rb') as f:
+        return pickle.load(f)
