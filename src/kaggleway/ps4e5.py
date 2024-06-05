@@ -1,10 +1,14 @@
 import pandas as pd
-from .utils import submit, stage_df, Competition
+from .utils import submit, stage_df, Competition, normalize_all
 from pathlib import Path
 
 
 TARGET_COL = 'FloodProbability'
 COMP_NAME = 'playground-series-s4e5'
+FEATS = ['MonsoonIntensity', 'TopographyDrainage', 'RiverManagement', 'Deforestation', 'Urbanization',
+         'ClimateChange', 'DamsQuality', 'Siltation', 'AgriculturalPractices', 'Encroachments',
+         'IneffectiveDisasterPreparedness', 'DrainageSystems', 'CoastalVulnerability', 'Landslides', 'Watersheds',
+         'DeterioratingInfrastructure', 'PopulationScore', 'WetlandLoss', 'InadequatePlanning', 'PoliticalFactors']
 
 
 def process_feats(df):
@@ -43,3 +47,9 @@ class PS4E5Submission:
 
     def submit(self, msg, f_name=''):
         submit(COMP_NAME, msg, d_name=self.d_name, f_name=f_name)
+
+
+def normalize_orig(X):
+    df = X.copy()
+    df[FEATS] = normalize_all(X[FEATS])
+    return df
