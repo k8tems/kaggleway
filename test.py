@@ -10,7 +10,7 @@ class MockTrial(object):
 
     @staticmethod
     def suggest_categorical(_, rng):
-        return sample(rng, k=1)
+        return sample(rng, k=1)[0]
 
 
 class TestTuningParamsIntegration(unittest.TestCase):
