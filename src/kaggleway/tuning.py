@@ -10,8 +10,11 @@ class TuningParam(object):
     def __init__(self, *args, **kwargs):
         super(TuningParam, self).__init__(*args, **kwargs)
 
-    def suggest(self, trial, *args):
-        return getattr(trial, f'suggest_{self.method_type}')(self.name, *args)
+    def parse_ctx(self, ctx):
+        raise NotImplementedError()
+
+    def get_suggest_method(self, trial):
+        return getattr(trial, f'suggest_{self.method_type}')
 
 
 @dataclass
@@ -19,8 +22,11 @@ class IntCatParam(TuningParam):
     id_ = 'intcat'
     method_type = 'categorical'
 
+    def parse_ctx(self, ctx):
+        return
+
     def suggest(self, trial, *_):
-        return getattr(trial, f'suggest_{self.method_type}')(self.name, [int(c) for c in self.ctx.split('|')])
+        return self.get_suggest_method(trial)(self.name, [int(c) for c in self.ctx.split('|')])
 
 
 @dataclass
@@ -30,7 +36,7 @@ class FloatParam(TuningParam):
 
     def suggest(self, trial, *_):
         ctx = self.ctx.split('|')
-        return getattr(trial, f'suggest_{self.method_type}')(self.name, float(ctx[0]), float(ctx[1]))
+        return self.get_suggest_method(trial)(self.name, float(ctx[0]), float(ctx[1]))
 
 
 def get_param_cls(id_):
