@@ -3,8 +3,18 @@ from dataclasses import dataclass
 
 @dataclass
 class TuningParam(object):
+    """
+    csv形式で定義されたチューニング対象パラメータのリストを格納するクラス
+    ctorのパラメータ：
+      - `name`: trial.suggest_param(name, *args)の`name`に渡すパラメータ名
+      - `ctx`: csvから抽出した生のパラメータ範囲、parseするのは親クラスの責任
+    スーパークラスで定義するもの：
+      - `id_`: 該当パラメータがどの親クラスのパラメータに相当するかを示す識別子(e.g. intcat)
+      - `method_type`: optunaのsuggest_の後に付く識別子。合成した文字列を直接getattrにぶち込む
+    """
     name: str
     ctx: str
+    id_ = ''
     method_type = ''
 
     def __init__(self, *args, **kwargs):
