@@ -20,9 +20,6 @@ class TuningParam(object):
     def __init__(self, *args, **kwargs):
         super(TuningParam, self).__init__(*args, **kwargs)
 
-    def parse_ctx(self, ctx):
-        raise NotImplementedError()
-
     def get_suggest_method(self, trial):
         return getattr(trial, f'suggest_{self.method_type}')
 
@@ -34,9 +31,6 @@ class TuningParam(object):
 class IntCatParam(TuningParam):
     id_ = 'intcat'
     method_type = 'categorical'
-
-    def parse_ctx(self, ctx):
-        return
 
     def suggest(self, trial):
         # ctxのパースだけポリモーフィックにしたい所だが、パラメータの数が種類によって違うのでやり辛い
