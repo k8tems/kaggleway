@@ -28,7 +28,10 @@ class IntCatParam(TuningParam):
     def parse_ctx(self, ctx):
         return
 
-    def suggest(self, trial, *_):
+    def suggest(self, trial):
+        # ctxのパースだけポリモーフィックにしたい所だが、パラメータの数が種類によって違うのでやり辛い
+        # 一旦は親クラスのsuggest_メソッドを呼び出す方式で妥協
+        # シグネチャが違うので(同名だとIDEで警告が出る)アンダースコアを付けて差別化する
         return super(IntCatParam, self).suggest_(trial, [int(c) for c in self.ctx.split('|')])
 
 
@@ -37,7 +40,7 @@ class FloatParam(TuningParam):
     id_ = 'float'
     method_type = id_
 
-    def suggest(self, trial, *_):
+    def suggest(self, trial):
         ctx = self.ctx.split('|')
         return super(FloatParam, self).suggest_(trial,  float(ctx[0]), float(ctx[1]))
 
