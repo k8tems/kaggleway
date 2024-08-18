@@ -13,13 +13,6 @@ class TuningParam(object):
     def suggest(self, trial, *args):
         return getattr(trial, f'suggest_{self.method_type}')(self.name, *args)
 
-    @classmethod
-    def get_sub_cls(cls, id_):
-        for sub_cls in cls.__subclasses__():
-            if sub_cls.id_ == id_:
-                return sub_cls
-        assert ()
-
 
 @dataclass
 class IntCatParam(TuningParam):
@@ -40,9 +33,16 @@ class FloatParam(TuningParam):
         return getattr(trial, f'suggest_{self.method_type}')(self.name, float(ctx[0]), float(ctx[1]))
 
 
+def get_param_cls(id_):
+    for sub_cls in TuningParam.__subclasses__():
+        if sub_cls.id_ == id_:
+            return sub_cls
+    assert ()
+
+
 def create_param(row):
     name, ctx, type_ = row.split(',')
-    return TuningParam.get_sub_cls(type_)(name, ctx)
+    return get_param_cls(type_)(name, ctx)
 
 
 class TuningParamPool(list):
