@@ -16,7 +16,7 @@ class MockTrial(object):
 class TestTuningParamsIntegration(unittest.TestCase):
     def test_tuning_params(self):
         fixture = """learning_rate,1e-7|2e-1,float
-ds_size,1000|10000|100000|300000,int"""
+ds_size,1000|10000|100000|300000,intcat"""
         params = TuningParamPool.from_txt(fixture)
         trial = MockTrial()
         for i in range(100):
