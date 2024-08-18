@@ -16,6 +16,9 @@ class TuningParam(object):
     def get_suggest_method(self, trial):
         return getattr(trial, f'suggest_{self.method_type}')
 
+    def suggest_(self, trial, *args):
+        return self.get_suggest_method(trial)(self.name, *args)
+
 
 @dataclass
 class IntCatParam(TuningParam):
@@ -26,7 +29,7 @@ class IntCatParam(TuningParam):
         return
 
     def suggest(self, trial, *_):
-        return self.get_suggest_method(trial)(self.name, [int(c) for c in self.ctx.split('|')])
+        return super(IntCatParam, self).suggest_(trial, [int(c) for c in self.ctx.split('|')])
 
 
 @dataclass
@@ -36,7 +39,7 @@ class FloatParam(TuningParam):
 
     def suggest(self, trial, *_):
         ctx = self.ctx.split('|')
-        return self.get_suggest_method(trial)(self.name, float(ctx[0]), float(ctx[1]))
+        return super(FloatParam, self).suggest_(trial,  float(ctx[0]), float(ctx[1]))
 
 
 def get_param_cls(id_):
