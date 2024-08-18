@@ -1,5 +1,16 @@
+from random import uniform, sample
 import unittest
 from src.kaggleway.tuning import TuningParamPool
+
+
+class MockTrial(object):
+    @staticmethod
+    def suggest_float(_, *rng):
+        return uniform(*rng)
+
+    @staticmethod
+    def suggest_categorical(_, rng):
+        return sample(rng, k=1)
 
 
 class TestTuningParamsIntegration(unittest.TestCase):
