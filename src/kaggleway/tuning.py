@@ -73,4 +73,5 @@ class TuningParamPool(list):
 
 
 def compile_tuning_params(params, trial):
+    """指定されたoptunaのtrialを使ってチューニングしたいパラメータをランダムで生成する"""
     return dict([(p.name, p.suggest(trial)) for p in params])
