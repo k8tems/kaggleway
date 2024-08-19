@@ -1,4 +1,4 @@
-from random import uniform, sample
+from random import uniform, sample, randint
 import unittest
 from src.kaggleway.tuning import TuningParamPool, compile_tuning_params
 
@@ -12,6 +12,10 @@ class MockTrial(object):
     def suggest_categorical(_, rng):
         return sample(rng, k=1)[0]
 
+    @staticmethod
+    def suggest_int(_, *rng):
+        return randint(*rng)
+
 
 class TestTuningParamsIntegration(unittest.TestCase):
     def test_suggest_int(self):
@@ -20,8 +24,8 @@ class TestTuningParamsIntegration(unittest.TestCase):
         trial = MockTrial()
         for i in range(10):
             val_0 = params[0].suggest(trial)
-            self.assertLessEqual(val_0, 1)
-            self.assertGreaterEqual(val_0, 10)
+            self.assertLessEqual(val_0, 10)
+            self.assertGreaterEqual(val_0, 1)
 
     def test_suggest(self):
             fixture = """learning_rate,1e-7|2e-1,float
