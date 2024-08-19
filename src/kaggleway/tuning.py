@@ -49,6 +49,16 @@ class FloatParam(TuningParam):
         return super(FloatParam, self).suggest_(trial,  float(ctx[0]), float(ctx[1]))
 
 
+@dataclass
+class IntParam(TuningParam):
+    id_ = 'int'
+    method_type = id_
+
+    def suggest(self, trial):
+        ctx = self.ctx.split('|')
+        return super(IntParam, self).suggest_(trial,  int(ctx[0]), int(ctx[1]))
+
+
 def get_param_cls(id_):
     for sub_cls in TuningParam.__subclasses__():
         if sub_cls.id_ == id_:
