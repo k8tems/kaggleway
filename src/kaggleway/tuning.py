@@ -79,7 +79,7 @@ class TuningParamPool(list):
         learning_rate,1e-7|2e-1,float
         ds_size,1000|10000|100000|300000,intcat
         """
-        return [create_param(row) for row in txt.split('\n')]
+        return [create_param(row) for row in txt.split(' ')]
 
 
 def compile_tuning_params(params, trial):

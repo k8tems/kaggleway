@@ -28,8 +28,7 @@ class TestTuningParamsIntegration(unittest.TestCase):
             self.assertGreaterEqual(val_0, 1)
 
     def test_suggest(self):
-            fixture = """learning_rate,1e-7|2e-1,float
-    ds_size,1000|10000|100000|300000,intcat"""
+            fixture = """learning_rate,1e-7|2e-1,float ds_size,1000|10000|100000|300000,intcat"""
             params = TuningParamPool.from_txt(fixture)
             trial = MockTrial()
             val_0 = params[0].suggest(trial)
@@ -39,8 +38,7 @@ class TestTuningParamsIntegration(unittest.TestCase):
             self.assertIn(val_1, [1000, 10000, 100000, 300000])
 
     def test_tuning_params(self):
-        fixture = """learning_rate,1e-7|2e-1,float
-ds_size,1000|10000|100000|300000,intcat"""
+        fixture = """learning_rate,1e-7|2e-1,float ds_size,1000|10000|100000|300000,intcat"""
         params = TuningParamPool.from_txt(fixture)
         trial = MockTrial()
         for i in range(100):
