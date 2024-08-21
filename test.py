@@ -15,9 +15,10 @@ class MockTrial(object):
 
 class TestTuningParamsIntegration(unittest.TestCase):
     def test_suggest(self):
-        fixture = """learning_rate,1e-7|2e-1,float
-ds_size,1000|10000|100000|300000,intcat"""
-        params = TuningParamPool.from_txt(fixture)
+        fixture = [
+            {'name': 'learning_rate', 'range': [1e-7, 2e-1], 'type': 'float'},
+            {'name': 'ds_size', 'range': [1000, 10000, 100000, 300000], 'type': 'intcat'}]
+        params = TuningParamPool.from_dict(fixture)
         trial = MockTrial()
         val_0 = params[0].suggest(trial)
         self.assertLessEqual(val_0, 2e-1)
@@ -26,9 +27,10 @@ ds_size,1000|10000|100000|300000,intcat"""
         self.assertIn(val_1, [1000, 10000, 100000, 300000])
 
     def test_tuning_params(self):
-        fixture = """learning_rate,1e-7|2e-1,float
-ds_size,1000|10000|100000|300000,intcat"""
-        params = TuningParamPool.from_txt(fixture)
+        fixture = [
+            {'name': 'learning_rate', 'range': [1e-7, 2e-1], 'type': 'float'},
+            {'name': 'ds_size', 'range': [1000, 10000, 100000, 300000], 'type': 'intcat'}]
+        params = TuningParamPool.from_dict(fixture)
         trial = MockTrial()
         for i in range(100):
             compiled_params = compile_tuning_params(params, trial)
